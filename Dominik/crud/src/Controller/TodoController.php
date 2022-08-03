@@ -78,19 +78,13 @@ class TodoController extends AbstractController
           $now = new \DateTime('now');
           $todo = $form->getData();
           $todo->setCreateDate($now);
-          if ($pictureFile) {
-            $pictureFileName = $fileUploader->upload($pictureFile);
-            $todo->setPictureUrl($pictureFileName);
-            }
           $em = $doctrine->getManager();
           $em->persist($todo);
-        }
           $em->flush();
           $this->addFlash(
                'notice',
                'Todo Edited'
                );
-
           return $this->redirectToRoute('todo');
       }
 
